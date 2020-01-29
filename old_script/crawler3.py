@@ -7,9 +7,10 @@ account = "dses5900"
 password = "gary0223chou"
 session = requests.Session()
 headers = {
-    "User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit 537.36 (KHTML, like Gecko) Chrome", 
-    "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit 537.36 (KHTML, like Gecko) Chrome",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
 }
+
 
 def main():
     login()
@@ -18,7 +19,7 @@ def main():
 
     with open("D:\\test.txt", "a", encoding='utf8') as file:
         baseUrl = "https://www.popo.tw{}"
-        nextHref = '/books/583771/articles/6836780'#"/books/583771/articles/6772370"
+        nextHref = '/books/583771/articles/6836780'  # "/books/583771/articles/6772370"
         while nextHref:
             url = baseUrl.format(nextHref)
 
@@ -43,8 +44,9 @@ def main():
             # if (index % 10 == 0):
             #     time.sleep(10)
 
+
 def login():
-    loginParam = {
+    login_param = {
         "account": account,
         "pwd": password,
         "remember_me": "1",
@@ -55,7 +57,8 @@ def login():
         "client_ip": "122.118.6.23",
         "url": "https://www.popo.tw"
     }
-    session.post("https://members.popo.tw/apps/login.php", headers=headers, data=loginParam)
+    session.post("https://members.popo.tw/apps/login.php", headers=headers, data=login_param)
+
 
 if __name__ == '__main__':
     main()

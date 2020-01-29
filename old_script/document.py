@@ -13,7 +13,7 @@ class Document:
         return self._content
 
     @property
-    def nextIndex(self):
+    def next_index(self):
         return self._nextIndex
 
     def __str__(self):
