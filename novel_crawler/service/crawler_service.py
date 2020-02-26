@@ -14,7 +14,8 @@ class CrawlerService:
         name = crawler.get_name()
         sources = crawler.get_links()
         dao = FileDao(Config.store_dir())
-        with ThreadPoolExecutor(max_workers=5) as executor:
+
+        with ThreadPoolExecutor(max_workers=8) as executor:
             for source in sources:
                 executor.submit(self.__parse_and_save, crawler, source, dao)
         dao.union(name, len(sources))

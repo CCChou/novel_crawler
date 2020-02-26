@@ -11,6 +11,10 @@ class Crawler(metaclass=ABCMeta):
         return self._url
 
     @abstractmethod
+    def get_name(self):
+        pass
+
+    @abstractmethod
     def get_links(self):
         pass
 
