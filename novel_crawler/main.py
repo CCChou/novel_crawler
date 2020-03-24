@@ -9,7 +9,7 @@ if __name__ == '__main__':
         logger = logging.getLogger(__name__)
         s = CrawlerService()
         begin = time.time()
-        s.crawl('https://czbooks.net/n/cp167ak')
+        s.crawl('https://www.x23qb.com/book/1041/')
         end = time.time()
         logger.info(f'spend {end - begin}')
     except Exception as err:
