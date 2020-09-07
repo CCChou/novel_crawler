@@ -10,14 +10,18 @@ class CrawlerService:
         self.__logger = logging.getLogger(__name__)
 
     def crawl(self, url):
+        self.__logger.info('init crawler')
         crawler = CrawlerProvider.create_crawler(url)
         name = crawler.get_name()
         sources = crawler.get_links()
         dao = FileDao(Config.store_dir())
 
+        self.__logger.info('start crawling')
         with ThreadPoolExecutor(max_workers=8) as executor:
             for source in sources:
                 executor.submit(self.__parse_and_save, crawler, source, dao)
+
+        self.__logger.info('start union')
         dao.union(name, len(sources))
 
     def __parse_and_save(self, crawler, source, dao):
