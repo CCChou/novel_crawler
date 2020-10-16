@@ -25,6 +25,10 @@ class CrawlerService:
         dao.union(name, len(sources))
 
     def __parse_and_save(self, crawler, source, dao):
-        document = crawler.get_document(source)
-        dao.save(document)
-        self.__logger.info(document.title)
+        logger = logging.getLogger(__name__)
+        try:
+            document = crawler.get_document(source)
+            dao.save(document)
+            self.__logger.info(document.title)
+        except Exception as err:
+            logger.error(err)
