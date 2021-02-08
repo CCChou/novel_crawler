@@ -6,6 +6,7 @@ Craler for novel, support the following website.
 
 ## Usage
 
+install dependencies
 ```
 pip install -r requirements.txt
 ```
