@@ -4,6 +4,8 @@ from novel_crawler.crawler.crawler import Crawler
 from novel_crawler.crawler.utils.webutil import get_html
 from novel_crawler.model.source import Source
 from novel_crawler.model.document import Document
+from urllib.parse import urlparse
+import re
 
 
 class X23qbCrawler(Crawler):
@@ -33,6 +35,7 @@ class X23qbCrawler(Crawler):
         html_page = BeautifulSoup(html, 'lxml')
         title = html_page.select_one('#mlfy_main_text > h1').get_text()
         content = self.__get_clean_content(html_page)
+        content += self.__get_remaining_content(source.link, html_page)
         return Document(source.order, title, content)
 
     def __get_clean_content(self, html_page):
@@ -40,4 +43,23 @@ class X23qbCrawler(Crawler):
             tag.decompose()
         for tag in html_page.select('#TextContent div'):
             tag.decompose()
-        return html_page.select_one('#TextContent').get_text()
+
+        content = html_page.select_one('#TextContent').get_text('\n', '<p>')
+        return re.sub('（继续下一页）|！！禁止转码、禁止阅读模式，部分内容隐藏，请退出浏览器阅读模式！|铅笔小说', '', content)
+
+    def __get_remaining_content(self, first_link, html_page) -> str:
+        next_link = self.__get_next_link(html_page)
+        if not self.__is_same_chapter(first_link, next_link):
+            return ''
+
+        link = Site.X23QB.get_base().format(next_link)
+        html = get_html(link, self.encoding)
+        html_page = BeautifulSoup(html, 'lxml')
+        return self.__get_clean_content(html_page) + self.__get_remaining_content(first_link, html_page)
+
+    def __get_next_link(self, html_page):
+        return html_page.select_one('.mlfy_page a:last-child').get('href')
+
+    def __is_same_chapter(self, first_link, next_link):
+        link_prefix = urlparse(first_link).path.split('.')[0]
+        return next_link.startswith(link_prefix)
