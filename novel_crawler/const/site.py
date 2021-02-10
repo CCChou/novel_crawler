@@ -11,4 +11,4 @@ class Site(StrEnum):
     X23QB = 'https://www.x23qb.com'
 
     def get_base(self):
-        return self.value + '/{}'
+        return self.value + '{}'
