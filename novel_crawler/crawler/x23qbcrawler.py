@@ -6,6 +6,7 @@ from novel_crawler.model.source import Source
 from novel_crawler.model.document import Document
 from urllib.parse import urlparse
 import re
+from novel_crawler.crawler.utils.s2tutils import s2t
 
 
 class X23qbCrawler(Crawler):
@@ -17,7 +18,7 @@ class X23qbCrawler(Crawler):
         html = get_html(self._url, self.encoding)
         html_page = BeautifulSoup(html, 'lxml')
         name = html_page.select_one('.d_title > h1').get_text()
-        return name
+        return s2t(name)
 
     def get_links(self):
         html = get_html(self._url, self.encoding)
@@ -36,7 +37,7 @@ class X23qbCrawler(Crawler):
         title = html_page.select_one('#mlfy_main_text > h1').get_text()
         content = self.__get_clean_content(html_page)
         content += self.__get_remaining_content(source.link, html_page)
-        return Document(source.order, title, content)
+        return Document(source.order, s2t(title), s2t(content))
 
     def __get_clean_content(self, html_page):
         for tag in html_page.select('#TextContent dt'):
