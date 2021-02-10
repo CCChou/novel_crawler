@@ -35,6 +35,6 @@ class UUCrawler(Crawler):
 
     def __get_clear_content(self, content):
         return re.sub(
-            '[UＵwｗaａcｃhｈkｋmｍnｎoｏsｓuｕwｗ.．]{2}看书[\s]*[UＵwｗaａcｃhｈkｋmｍnｎoｏsｓuｕwｗ.．]+|\(adsbygoogle = window.adsbygoogle \|\| '
+            '[UＵwｗaａcｃhｈkｋmｍnｎoｏsｓuｕwｗ.．]{2}(看书|看書)[\s]{0,5}[UＵwｗaａcｃhｈkｋmｍnｎoｏsｓuｕwｗ.．]+|\(adsbygoogle = window.adsbygoogle \|\| '
             '\[\]\).push\({}\);',
             '', content)
