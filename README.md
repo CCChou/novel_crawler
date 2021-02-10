@@ -1,16 +1,25 @@
-# novel_crawler
+# Novel Crawler
 
-Craler for novel, support the following website.
-* [UU 看書](https://tw.uukanshu.com/)
-* ...etc
+Tools for crawling the novels, currently support the following websites.
+* [UU看書](https://tw.uukanshu.com/)
+* [鉛筆小說](https://www.x23qb.com/)
+* [小說狂人](https://czbooks.net)
 
 ## Usage
 
-install dependencies
+Install dependencies
 ```
 pip install -r requirements.txt
 ```
 
+Modify the config.json, change the save directory
 ```
-python ...
+{
+  "store_dir" : "C:\\path\\you\\want\\to\\save\\novels"
+}
+```
+
+Execute the crawler
+```
+python novel_crawler/main.py [novel_url]
 ```
