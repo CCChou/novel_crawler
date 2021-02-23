@@ -15,7 +15,8 @@ pip install -r requirements.txt
 Modify the config.json, change the save directory
 ```
 {
-  "store_dir" : "C:\\path\\you\\want\\to\\save\\novels"
+  "store_dir" : "C:\\path\\you\\want\\to\\save\\novels",
+  "file_format" : "txt"
 }
 ```
 
