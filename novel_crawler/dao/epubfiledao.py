@@ -1,23 +1,10 @@
 import re
 import os
-from novel_crawler.model.document import Document
+from novel_crawler.dao.filedao import FileDao
 from ebooklib import epub
 
 
-class EpubFileDao:
-    def __init__(self, base_path):
-        self.__base_path = base_path
-
-    def save(self, document: Document):
-        with open(self.__get_temp_file_path(document.order), 'w', encoding='utf8') as file:
-            file.write(document.title)
-            file.write('\n\n')
-            file.write(document.content)
-            file.write('\n\n')
-
-    def __get_temp_file_path(self, index):
-        return self.__base_path + str(index)
-
+class EpubFileDao(FileDao):
     def union(self, name, size):
         file_name = self.__get_valid_name(name)
         book = epub.EpubBook()

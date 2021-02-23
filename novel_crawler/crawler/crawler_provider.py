@@ -13,3 +13,5 @@ class CrawlerProvider:
             return CZCrawler(url)
         elif url.startswith(Site.X23QB.value):
             return X23qbCrawler(url)
+        else:
+            raise Exception("Unsupported url")

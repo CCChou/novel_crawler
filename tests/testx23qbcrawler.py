@@ -16,6 +16,6 @@ class X23qbCrawlerTest(unittest.TestCase):
             print("order: {}, link: {}".format(source.order, source.link))
 
     def test_get_document(self):
-        source = Source(1, 'https://www.x23qb.com//book/1041/224168.html')
+        source = Source(1, 'https://www.x23qb.com/book/1041/224169.html')
         doc = self.crawler.get_document(source)
         print("title: {}\ncontent: {}".format(doc.title, doc.content))
