@@ -30,13 +30,13 @@ class EpubFileDao(FileDao):
         book.add_item(nav_css)
         book.toc = toc_list
         book.spine = spine_list
-        epub.write_epub(self.__base_path + file_name + '.epub', book, {})
+        epub.write_epub(self._base_path + file_name + '.epub', book, {})
 
     def __get_valid_name(self, name):
         return re.sub('[:]', '', name)
 
     def __read_content(self, index):
-        path = self.__get_temp_file_path(index)
+        path = self._get_temp_file_path(index)
         with open(path, 'r', encoding='utf8') as file:
             content = file.read()
         os.remove(path)

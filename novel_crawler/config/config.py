@@ -15,8 +15,9 @@ class Config:
     @classmethod
     def __init_sys_config(cls, resource_dir):
         with open(resource_dir + 'config.json') as file:
-            cls.__store_dir = json.load(file).get('store_dir')
-            cls.__file_format = json.load(file).get('__file_format')
+            args = json.load(file)
+            cls.__store_dir = args.get('store_dir')
+            cls.__file_format = args.get('file_format')
 
     @classmethod
     def __init_logging_config(cls, resource_dir):
