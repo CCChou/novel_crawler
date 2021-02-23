@@ -6,7 +6,7 @@ from ebooklib import epub
 
 class EpubFileDao(FileDao):
     def union(self, name, size):
-        file_name = self.__get_valid_name(name)
+        file_name = self._get_valid_name(name)
         book = epub.EpubBook()
         book.set_identifier(file_name)
         book.set_title(file_name)
@@ -15,7 +15,7 @@ class EpubFileDao(FileDao):
         toc_list = []
         for index in range(1, size + 1):
             content = self.__read_content(index)
-            lines_of_content = content.partition('\n')
+            lines_of_content = content.split('\n')
             title = lines_of_content[0]
             ch = epub.EpubHtml(title=title, file_name='ch_{}.xhtml'.format(index), lang='zh')
             ch.content = '<h4>{}</h4>{}'.format(title, self.__create_content(lines_of_content[1:]))
@@ -32,7 +32,7 @@ class EpubFileDao(FileDao):
         book.spine = spine_list
         epub.write_epub(self._base_path + file_name + '.epub', book, {})
 
-    def __get_valid_name(self, name):
+    def _get_valid_name(self, name):
         return re.sub('[:]', '', name)
 
     def __read_content(self, index):
@@ -44,7 +44,7 @@ class EpubFileDao(FileDao):
 
     def __create_content(self, lines):
         content = ''
-        base = '<p>{}\n</p>'
+        base = '<p>{}</p>'
         for line in lines:
             content += base.format(line)
         return content

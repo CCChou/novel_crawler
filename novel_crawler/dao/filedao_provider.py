@@ -1,4 +1,5 @@
 from novel_crawler.dao.epubfiledao import EpubFileDao
+from novel_crawler.dao.kepubfiledao import KepubFileDao
 from novel_crawler.dao.txtfiledao import TxtFileDao
 
 
@@ -9,5 +10,7 @@ class FileDaoProvider:
             return TxtFileDao(base_path)
         elif file_format == 'epub':
             return EpubFileDao(base_path)
+        elif file_format == 'kepub':
+            return KepubFileDao(base_path)
         else:
             raise Exception("Unsupported format")
