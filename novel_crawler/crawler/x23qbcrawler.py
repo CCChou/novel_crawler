@@ -25,7 +25,7 @@ class X23qbCrawler(Crawler):
         html_page = BeautifulSoup(html, 'lxml')
         sources = []
         index = 1
-        for a_tag in html_page.select('#chapterList a'):
+        for a_tag in html_page.select('.chaw_c > li > a'):
             link = Site.X23QB.get_base().format(a_tag.get('href'))
             sources.append(Source(index, link))
             index += 1
@@ -46,7 +46,7 @@ class X23qbCrawler(Crawler):
             tag.decompose()
 
         content = html_page.select_one('#TextContent').get_text('\n', '<p>')
-        return re.sub('（继续下一页）|！！禁止转码、禁止阅读模式，部分内容隐藏，请退出浏览器阅读模式！|铅笔小说', '', content)
+        return re.sub('（继续下一页）|！！禁止转码、禁止阅读模式，部分内容隐藏，请退出浏览器阅读模式！|鉛筆小說 23qb.net', '', content)
 
     def __get_remaining_content(self, first_link, html_page) -> str:
         next_link = self.__get_next_link(html_page)
@@ -59,7 +59,9 @@ class X23qbCrawler(Crawler):
         return self.__get_clean_content(html_page) + self.__get_remaining_content(first_link, html_page)
 
     def __get_next_link(self, html_page):
-        return html_page.select_one('.mlfy_page a:last-child').get('href')
+        scripts = html_page.select('script')
+        last_script = scripts[len(scripts)-1]
+        return re.search('(?<=nextpage=\")[^;]+(?=\";)', last_script.text).group(0)
 
     def __is_same_chapter(self, first_link, next_link):
         link_prefix = urlparse(first_link).path.split('.')[0]
