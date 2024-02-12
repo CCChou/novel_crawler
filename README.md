@@ -7,9 +7,20 @@ Tools for crawling the novels, currently support the following websites.
 
 ## Usage
 
+Setup Virtual Environment
+```
+pip -m venv .venv
+source .venv/bin/activate
+```
+
 Install dependencies
 ```
 pip install -r requirements.txt
+```
+
+Install current project as well
+```
+pip install -e .
 ```
 
 Modify the config.json, change the save directory

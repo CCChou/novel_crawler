@@ -9,7 +9,7 @@ if __name__ == '__main__':
         if len(sys.argv) < 2:
             raise Exception('Need the source url')
 
-        Config.init('../')
+        Config.init('./')
         logger = logging.getLogger(__name__)
         s = CrawlerService()
         begin = time.time()
