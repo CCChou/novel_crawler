@@ -33,5 +33,5 @@ Modify the config.json, change the save directory
 
 Execute the crawler
 ```
-python novel_crawler/main.py [novel_url]
+python src/novel_crawler/main.py [novel_url]
 ```
