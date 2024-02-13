@@ -9,7 +9,7 @@ Tools for crawling the novels, currently support the following websites.
 
 Setup Virtual Environment
 ```
-pip -m venv .venv
+python -m venv .venv
 source .venv/bin/activate
 ```
 
